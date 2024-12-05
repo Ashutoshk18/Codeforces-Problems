@@ -1,26 +1,36 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-void solve()
-{
-    int n, h1, m1, H, M; 
-    cin >> n >> H >> M; 
-    for(int i = 1; i <= n; i++)
-    {
-        int sleep = H*60 + M; 
-        cin >> h1 >> m1; 
-        int alarm = h1*60 + m1; 
-        
-        
+void solve(){
+    int n, H, M;
+    cin >> n >> H >> M;  
+    int sleep = 60*H + M;
+    int sleep_time = 24 * 60;
+    for(int i = 0; i < n; i++){
+        int h, m;
+        cin >> h >> m;
+        int time = 60*h + m - sleep;
+        // cout << time << endl;
+        if(time == sleep){
+            cout << 0 << " " << 0 << endl; 
+            return; 
+        }
+        if(time < 0){
+            //we know that alarm is before sleep time
+            //it will pass through 1440(00:00)
+            time += 1440; 
+        }
+        sleep_time = min(sleep_time, time); 
+
     }
+    cout << sleep_time/60 << " " << sleep_time%60 << endl;  
 }
 
-int main()
-{
-    int test = 1; 
-    cin >> test; 
-    while(test--)
-    {
+int main(){
+    int test;
+    cin >> test;
+    while(test--){
         solve();
     }
+    return 0;
 }
